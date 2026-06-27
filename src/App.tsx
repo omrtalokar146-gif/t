@@ -42,6 +42,8 @@ import {
   ReferenceLine 
 } from "recharts";
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL?.replace(/\/$/, "") ?? "";
+
 // Interfaces matching backend payload keys
 interface Ticker {
   price: number;
@@ -290,7 +292,8 @@ python-dotenv>=1.0.0`;
     setError(null);
     try {
       const activeSymbol = customPair ? customPair.trim().toUpperCase() : selectedPair;
-      const response = await fetch(`/api/signals?symbol=${encodeURIComponent(activeSymbol)}&interval=${timeframe}&limit=${candlesLimit}&_t=${Date.now()}`);
+      const apiBase = BACKEND_URL || "";
+      const response = await fetch(`${apiBase}/api/signals?symbol=${encodeURIComponent(activeSymbol)}&interval=${timeframe}&limit=${candlesLimit}&_t=${Date.now()}`);
       
       if (!response.ok) {
         const errorData = await response.json();
@@ -473,7 +476,8 @@ python-dotenv>=1.0.0`;
   // Fetch prices for all pairs from Binance to drive the Live Paper Trading mode
   const fetchLivePrices = async () => {
     try {
-      const response = await fetch(`/api/prices?_t=${Date.now()}`);
+      const apiBase = BACKEND_URL || "";
+      const response = await fetch(`${apiBase}/api/prices?_t=${Date.now()}`);
       if (response.ok) {
         const resData = await response.json();
         if (resData.success && resData.prices) {

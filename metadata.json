@@ -1,0 +1,6 @@
+{
+  "name": "Crypto Trading Signal Generator",
+  "description": "A professional real-time cryptocurrency trading signal generator using custom confluence strategies including 200 EMA, RSI, and candlestick patterns.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
